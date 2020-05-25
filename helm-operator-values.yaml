@@ -1,0 +1,15 @@
+createCRD: false
+chartsSyncInterval: 1m
+configureRepositories:
+  enable: true
+  repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+  - name: cs3org
+    url: https://cs3org.github.io/charts
+  - name: sciencemesh
+    url: https://sciencemesh.github.io/charts
+rbac:
+  create: true
+git:
+  pollInterval: 5m

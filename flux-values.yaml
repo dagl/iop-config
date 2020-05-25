@@ -1,0 +1,6 @@
+git:
+  path: releases,namespaces
+  pollInterval: 5m
+  readonly: true
+rbac:
+  create: true
