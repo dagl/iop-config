@@ -96,11 +96,27 @@
             ]
       ingress:
         enabled: true
-        hostname: sciencemesh.cernbox.cern.ch
-        annotations:
-          kubernetes.io/ingress.class: nginx
-          nginx.ingress.kubernetes.io/ssl-redirect: "true"
-        tls:
-          - secretName: cernbox-wildcard
-            hosts:
-              - sciencemesh.cernbox.cern.ch
+        services:
+          grpc:
+            hostname: sciencemesh.cernbox.cern.ch
+            path: /
+            annotations:
+              kubernetes.io/ingress.class: nginx
+              nginx.ingress.kubernetes.io/ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+            tls:
+              - secretName: cernbox-wildcard
+                hosts:
+                  - sciencemesh.cernbox.cern.ch
+          http:
+            hostname: sciencemesh.cernbox.cern.ch
+            path: /iop(/|$)(.*)
+            annotations:
+              kubernetes.io/ingress.class: nginx
+              nginx.ingress.kubernetes.io/ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/rewrite-target: /$2
+            tls:
+              - secretName: cernbox-wildcard
+                hosts:
+                  - sciencemesh.cernbox.cern.ch
+
