@@ -3,7 +3,7 @@
   kind: HelmRelease
   metadata:
     name: cern-iop-staging
-    namespace: flux-staging
+    namespace: staging
     annotations:
       fluxcd.io/automated: "true"
   spec:
@@ -11,12 +11,30 @@
     chart:
       # TODO(SamuAlfageme):
       # Replace with HelmRelease.sepc.{repository, name, version}
-      git: https://github.com/sciencemesh/charts.git
+      git: https://github.com/SamuAlfageme/sciencemeshcharts.git
       path: iop
-      ref: master
+      ref: iop_ingress
     values:
       revad:
         configFiles:
+          revad.toml: |
+            [grpc.services.gateway]
+            datagateway = "https://sciencemesh.cernbox.cern.ch/iop/datagateway"
+            [grpc.services.storageregistry]
+            [grpc.services.storageprovider]
+            data_server_url = "https://sciencemesh.cernbox.cern.ch/iop/data"
+            [grpc.services.authprovider]
+            [grpc.services.authregistry]
+            [grpc.services.userprovider]
+            [grpc.services.usershareprovider]
+            [grpc.services.publicshareprovider]
+            [grpc.services.ocmcore]
+            [grpc.services.ocmshareprovider]
+            [grpc.services.ocminvitemanager]
+            [grpc.services.ocmproviderauthorizer]
+            [http.services.dataprovider]
+            [http.services.prometheus]
+            [http.services.ocmd]
           # Users https://raw.githubusercontent.com/cs3org/reva/b208f4df729be30a8b03fbbe7f9848e614e2015f/examples/ocm-partners/users-cern.json
           users.json: |
             [
@@ -55,7 +73,7 @@
               }
             ]
           # Providers https://raw.githubusercontent.com/cs3org/reva/b208f4df729be30a8b03fbbe7f9848e614e2015f/examples/ocm-partners/providers.demo.json
-          providers.json: |
+          ocm-providers.json: |
             [
               {
                 "name": "cernbox",
