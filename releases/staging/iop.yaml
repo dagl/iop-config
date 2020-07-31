@@ -19,10 +19,10 @@
         configFiles:
           revad.toml: |
             [grpc.services.gateway]
-            datagateway = "https://sciencemesh.cernbox.cern.ch/iop/datagateway"
+            datagateway = "https://sciencemesh.softwaremind.com/iop/datagateway"
             [grpc.services.storageregistry]
             [grpc.services.storageprovider]
-            data_server_url = "https://sciencemesh.cernbox.cern.ch/iop/data"
+            data_server_url = "https://sciencemesh.softwaremind.com/iop/data"
             [grpc.services.authprovider]
             [grpc.services.authregistry]
             [grpc.services.userprovider]
